@@ -1,6 +1,8 @@
 package com.wxy.nestedscroll;
 
 import android.os.Bundle;
+import android.view.MotionEvent;
+import android.view.View;
 
 import com.wxy.nestedscroll.adapter.TestAdapter;
 
@@ -25,6 +27,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         initRecycler();
+        recyclerName.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return false;
+            }
+        });
     }
 
     private void initRecycler() {
