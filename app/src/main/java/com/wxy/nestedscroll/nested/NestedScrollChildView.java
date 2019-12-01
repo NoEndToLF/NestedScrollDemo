@@ -5,7 +5,9 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
+import android.view.View;
 import android.view.ViewConfiguration;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Scroller;
 
@@ -28,7 +30,6 @@ public class NestedScrollChildView extends LinearLayout implements NestedScrolli
     private int mLastFlingY;
     private final int[] mScrollConsumed = new int[2];
     private int mMaxFlingVelocity;
-    private boolean isStopFling;
     private float downX,downY;
     public NestedScrollChildView(Context context) {
         this(context,null);
@@ -48,12 +49,39 @@ public class NestedScrollChildView extends LinearLayout implements NestedScrolli
     }
 
     @Override
+    protected void onFinishInflate() {
+        addOnclickListner(this);
+        super.onFinishInflate();
+    }
+
+    private void addOnclickListner(View view) {
+        if (view instanceof ViewGroup){
+            for (int i=0;i<getChildCount();i++){
+                View mView=getChildAt(i);
+                mView.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                });
+            }
+        }else {
+            view.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+        }
+    }
+
+    @Override
     public boolean onInterceptTouchEvent(MotionEvent event) {
         boolean intercept=false;
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
-                downX=event.getX();
-                downY=event.getY();
+                downX=event.getRawX();
+                downY=event.getRawY();
                 intercept=false;
                 cancleFling();//停止惯性滑动
                 lastY = (int) event.getRawY();
@@ -65,8 +93,8 @@ public class NestedScrollChildView extends LinearLayout implements NestedScrolli
                 intercept=true;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
-                float clickX = downX - event.getX();
-                float clickY = downY -  event.getY();
+                float clickX = downX - event.getRawX();
+                float clickY = downY -  event.getRawY();
                 if (Math.abs(clickX)<= ViewConfiguration.get(getContext()).getScaledTouchSlop()&&
                         Math.abs(clickY)<= ViewConfiguration.get(getContext()).getScaledTouchSlop()){
                     intercept=false;
@@ -89,7 +117,6 @@ public class NestedScrollChildView extends LinearLayout implements NestedScrolli
             int dy = mLastFlingY - y;
             mLastFlingX = x;
             mLastFlingY = y;
-            Log.v("computeScroll",dy+"");
             startNestedScroll(ViewCompat.SCROLL_AXIS_HORIZONTAL, ViewCompat.TYPE_NON_TOUCH);
             if (dispatchNestedPreScroll(dx, dy, mScrollConsumed, null, ViewCompat.TYPE_NON_TOUCH)) {
                 //计算父控件消耗后，剩下的距离
@@ -137,7 +164,6 @@ public class NestedScrollChildView extends LinearLayout implements NestedScrolli
         switch (event.getAction()){
             case MotionEvent.ACTION_MOVE:
                 Log.v("xixi=","onTouchEvent  ACTION_MOVE");
-
                 int currentY = (int) (event.getRawY());
                 int currentX = (int) (event.getRawX());
                 int dy = lastY - currentY;

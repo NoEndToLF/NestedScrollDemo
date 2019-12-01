@@ -39,6 +39,7 @@
                 android:textColor="#ffffff"
                 android:textSize="18sp"
                 android:gravity="center"
+                android:id="@+id/tv_one"
                 ></TextView>
             <TextView
                 android:layout_width="0dp"
@@ -48,6 +49,8 @@
                 android:textColor="#ffffff"
                 android:textSize="18sp"
                 android:gravity="center"
+                android:id="@+id/tv_two"
+
                 ></TextView>
             <TextView
                 android:layout_width="0dp"
@@ -57,6 +60,8 @@
                 android:textColor="#ffffff"
                 android:textSize="18sp"
                 android:gravity="center"
+                android:id="@+id/tv_three"
+
                 ></TextView>
             <TextView
                 android:layout_width="0dp"
@@ -66,6 +71,7 @@
                 android:textColor="#ffffff"
                 android:textSize="18sp"
                 android:gravity="center"
+                android:id="@+id/tv_four"
                 ></TextView>
         </LinearLayout>
     </com.wxy.nestedscroll.nested.NestedScrollChildView>
