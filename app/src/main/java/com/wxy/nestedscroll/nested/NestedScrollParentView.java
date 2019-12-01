@@ -107,7 +107,6 @@ public class NestedScrollParentView extends LinearLayout implements NestedScroll
     }
     @Override
     public void onNestedScrollAccepted(@NonNull View child, @NonNull View target, int axes, int type) {
-        Log.v("heihei=",  "onNestedScrollAccepted");
         nestedScrollingParentHelper.onNestedScrollAccepted(child,target,axes,type);
         TARGET_HEIGHT=imageView.getHeight()*1.5f;
     }
@@ -121,8 +120,6 @@ public class NestedScrollParentView extends LinearLayout implements NestedScroll
 
     @Override
     public void onStopNestedScroll(@NonNull View target, int type) {
-        Log.v("onStopNestedScroll","onStopNestedScroll");
-
         nestedScrollingParentHelper.onStopNestedScroll(target,type);
         switch (type){
             case ViewCompat.TYPE_NON_TOUCH:
@@ -148,12 +145,10 @@ public class NestedScrollParentView extends LinearLayout implements NestedScroll
 
     @Override
     public void onNestedScroll(@NonNull View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed, int type) {
-        Log.v("heihei=",  "onNestedScroll");
     }
 
     @Override
     public void onNestedPreScroll(@NonNull View target, int dx, int dy, @NonNull int[] consumed, int type) {
-        Log.v("heihei=",  "onNestedPreScroll");
         if (recyclerView==null){
             recyclerView=(RecyclerView)findViewWithTag("recyclerView");
             ViewGroup.LayoutParams params = recyclerView.getLayoutParams();

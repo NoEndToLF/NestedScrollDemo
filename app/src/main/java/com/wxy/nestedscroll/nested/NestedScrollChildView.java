@@ -163,7 +163,6 @@ public class NestedScrollChildView extends LinearLayout implements NestedScrolli
         mVelocityTracker.addMovement(event);
         switch (event.getAction()){
             case MotionEvent.ACTION_MOVE:
-                Log.v("xixi=","onTouchEvent  ACTION_MOVE");
                 int currentY = (int) (event.getRawY());
                 int currentX = (int) (event.getRawX());
                 int dy = lastY - currentY;
@@ -189,7 +188,6 @@ public class NestedScrollChildView extends LinearLayout implements NestedScrolli
                 int xvel = (int) mVelocityTracker.getXVelocity();
                 dispatchNestedFling(xvel,yvel,false);
                 stopNestedScroll(TYPE_TOUCH);
-                Log.v("mVelocityTracker",yvel+"");
                 scroller.fling(0,0,0,yvel,-(getWidth()-getPaddingLeft()-getPaddingRight())*10,(getWidth()-getPaddingLeft()-getPaddingRight())*10,-(getHeight()-getPaddingBottom()-getPaddingTop())*10,(getHeight()-getPaddingBottom()-getPaddingTop())*10);
                 invalidate();
                 if (mVelocityTracker != null) {
