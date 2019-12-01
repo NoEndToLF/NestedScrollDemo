@@ -70,6 +70,7 @@ public class StickLayout extends LinearLayout
      */
     @Override
     public void onStopNestedScroll(@NonNull View target, int type) {
+        Log.v("heihei=","onStopNestedScroll");
         isFirstRunAnim = false;
         if (getScrollY() != MAX_HEIGHT) {//优化代码执行效率
             animator.startOfFloat(target, getScrollY());
@@ -79,7 +80,6 @@ public class StickLayout extends LinearLayout
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void onNestedPreScroll(@NonNull View target, int dx, int dy, @NonNull int[] consumed, int type) {
-        Log.v("heihei=","onNestedPreScroll");
         // 如果在自定义ViewGroup之上还有父View交给我来处理
         getParent().requestDisallowInterceptTouchEvent(true);
         if (type == ViewCompat.TYPE_TOUCH) {//手指触发的滑动
@@ -105,7 +105,6 @@ public class StickLayout extends LinearLayout
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void onNestedScroll(@NonNull View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed, int type) {
-        Log.v("heihei=","onNestedScroll");
         getParent().requestDisallowInterceptTouchEvent(true);
         if (type == ViewCompat.TYPE_NON_TOUCH) {//非手指触发的滑动，即Filing
             //解决冗余fling问题

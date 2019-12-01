@@ -64,13 +64,12 @@ private boolean isCanScroll;
                       finalY=0;
                   }
                       child.setTranslationY(finalY );
+
                   if (finalY!=0){
                       consumed[1]=dy;
-                  }}
+                  }
+              }
     }}
 
-    @Override
-    public void onNestedScroll(@NonNull CoordinatorLayout coordinatorLayout, @NonNull TextView child, @NonNull View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed, int type) {
 
-    }
 }
