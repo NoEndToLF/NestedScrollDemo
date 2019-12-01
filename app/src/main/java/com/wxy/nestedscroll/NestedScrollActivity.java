@@ -1,14 +1,47 @@
 package com.wxy.nestedscroll;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.wxy.nestedscroll.adapter.TestAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class NestedScrollActivity extends AppCompatActivity {
 
+    @BindView(R.id.iv_second)
+    ImageView ivSecond;
+    @BindView(R.id.recycler_name)
+    RecyclerView recyclerName;
+    private TestAdapter testAdapter;
+    private List<String> stringList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nested_scroll);
+        setContentView(R.layout.activity_nestedscroll);
+        ButterKnife.bind(this);
+        initRecycler();
+    }
+    private void initRecycler() {
+        stringList = new ArrayList<>();
+        for (int i = 0; i < 40; i++) {
+            stringList.add("第 " + (i + 1) + " 名");
+        }
+        testAdapter = new TestAdapter(R.layout.recycler_name, stringList);
+        recyclerName.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        recyclerName.setAdapter(testAdapter);
+    }
+    @OnClick(R.id.iv_second)
+    public void onViewClicked() {
+        Toast.makeText(this, "图片点击事件", Toast.LENGTH_SHORT).show();
     }
 }
