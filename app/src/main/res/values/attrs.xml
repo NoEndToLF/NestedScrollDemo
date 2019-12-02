@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+<declare-styleable name = "NestedScrollChildView">
+    <attr name="head_imageview_id" format="reference" />
+    <attr name="floating_view_id" format="reference" />
+    <attr name="toolbar_id" format="reference" />
+</declare-styleable>
+    </resources>

@@ -8,6 +8,7 @@ import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Scroller;
 
@@ -18,7 +19,7 @@ import androidx.core.view.ViewCompat;
 
 import static androidx.core.view.ViewCompat.TYPE_TOUCH;
 
-public class NestedScrollChildView extends LinearLayout implements NestedScrollingChild2 {
+public class NestedScrollChildView extends FrameLayout implements NestedScrollingChild2 {
     private int lastY = -1;
     private int lastX = -1;
     private int[] offset = new int[2];
@@ -31,6 +32,7 @@ public class NestedScrollChildView extends LinearLayout implements NestedScrolli
     private final int[] mScrollConsumed = new int[2];
     private int mMaxFlingVelocity;
     private float downX,downY;
+    private boolean isFirstDispatch;
     public NestedScrollChildView(Context context) {
         this(context,null);
     }
@@ -46,32 +48,47 @@ public class NestedScrollChildView extends LinearLayout implements NestedScrolli
         getNestedScrollingChildHelper().setNestedScrollingEnabled(true);
         scroller=new Scroller(context);
         mMaxFlingVelocity = vc.getScaledMaximumFlingVelocity();
+        isFirstDispatch=true;
     }
 
     @Override
     protected void onFinishInflate() {
-        addOnclickListner(this);
         super.onFinishInflate();
     }
 
-    private void addOnclickListner(View view) {
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (ev.getAction()==MotionEvent.ACTION_DOWN){
+            if (isFirstDispatch){
+            addOnclickListner(ev,this);
+                isFirstDispatch=false;
+            }
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+    private void addOnclickListner(MotionEvent ev ,View view) {
         if (view instanceof ViewGroup){
             for (int i=0;i<getChildCount();i++){
                 View mView=getChildAt(i);
+                if (!mView.onTouchEvent(ev)){
                 mView.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
                     }
                 });
+                }
             }
         }else {
+            if (!view.onTouchEvent(ev)){
             view.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
                 }
             });
+            }
         }
     }
 

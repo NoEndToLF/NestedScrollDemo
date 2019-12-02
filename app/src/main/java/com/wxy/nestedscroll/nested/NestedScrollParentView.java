@@ -149,6 +149,7 @@ public class NestedScrollParentView extends LinearLayout implements NestedScroll
 
     @Override
     public void onNestedPreScroll(@NonNull View target, int dx, int dy, @NonNull int[] consumed, int type) {
+        if (isRecovering) return;
         if (recyclerView==null){
             recyclerView=(RecyclerView)findViewWithTag("recyclerView");
             ViewGroup.LayoutParams params = recyclerView.getLayoutParams();

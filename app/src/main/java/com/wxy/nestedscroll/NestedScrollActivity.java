@@ -1,17 +1,21 @@
 package com.wxy.nestedscroll;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gyf.immersionbar.ImmersionBar;
 import com.wxy.nestedscroll.adapter.TestAdapter;
+import com.wxy.nestedscroll.util.StatusBarHeightUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
@@ -32,6 +36,10 @@ public class NestedScrollActivity extends AppCompatActivity {
     TextView tvThree;
     @BindView(R.id.tv_four)
     TextView tvFour;
+    @BindView(R.id.tv_toolbar_title)
+    TextView tvToolbarTitle;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     private TestAdapter testAdapter;
     private List<String> stringList;
 
@@ -40,9 +48,22 @@ public class NestedScrollActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nestedscroll);
         ButterKnife.bind(this);
+        //沉浸式
+        ImmersionBar.with(this).transparentStatusBar().statusBarDarkFont(true, 0.2f)
+                .fitsSystemWindows(false).keyboardEnable(true)
+                .navigationBarColor(R.color.black).init();
+        toolbar.setPadding(0, StatusBarHeightUtil.getStatusBarHeight(getResources()), 0, 0);
+        toolbar.setBackgroundColor(changeAlpha(getResources().getColor(R.color.white),0));
+        tvToolbarTitle.setText("测试");
         initRecycler();
     }
-
+    public int changeAlpha(int color, float fraction) {
+        int red = Color.red(color);
+        int green = Color.green(color);
+        int blue = Color.blue(color);
+        int alpha = (int) (Color.alpha(color) * fraction);
+        return Color.argb(alpha, red, green, blue);
+    }
     private void initRecycler() {
         stringList = new ArrayList<>();
         for (int i = 0; i < 40; i++) {
@@ -54,7 +75,7 @@ public class NestedScrollActivity extends AppCompatActivity {
     }
 
 
-    @OnClick({R.id.iv_second,R.id.tv_one, R.id.tv_two, R.id.tv_three, R.id.tv_four})
+    @OnClick({R.id.iv_second, R.id.tv_one, R.id.tv_two, R.id.tv_three, R.id.tv_four})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_second:
