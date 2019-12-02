@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.wxy.nestedscroll.nested.NestedScrollParentView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.wxy.nestedscroll.nested.NestedScrollParentView2 xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".NestedScrollActivity"
-    android:orientation="vertical"
-    app:head_imageview_id="@id/iv_second"
-    app:floating_view_id="@id/linear_floating"
+    app:head_view_id="@+id/iv_second"
+    app:floating_view_id="@+id/linear_floating"
+    app:toolbar_id="@+id/toolbar"
+    app:content_view_id="@+id/nested_child"
+    app:recycle_view_id="@+id/viewpager"
     >
     <com.wxy.nestedscroll.nested.NestedScrollChildView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
+        android:layout_height="match_parent"
         >
-
 <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
+    android:id="@+id/nested_child"
     >
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="260dp"
             android:id="@+id/iv_second"
             android:src="@mipmap/ic_bg"
-            android:tag="imageView"
             android:scaleType="centerCrop"
             >
         </ImageView>
@@ -34,7 +34,6 @@
             android:layout_height="wrap_content"
             android:paddingTop="20dp"
             android:paddingBottom="20dp"
-            android:tag="view"
             android:id="@+id/linear_floating"
             android:background="@color/colorPrimary"
             android:orientation="horizontal">
@@ -90,8 +89,6 @@
             android:minHeight="46dp"
             android:background="@color/white"
             app:contentInsetStart="0dp">
-
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="46dp"
@@ -140,10 +137,10 @@
                 </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
     </com.wxy.nestedscroll.nested.NestedScrollChildView>
-    <androidx.recyclerview.widget.RecyclerView
+    <androidx.viewpager.widget.ViewPager
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/recycler_name"
-        android:tag="recyclerView"
-        ></androidx.recyclerview.widget.RecyclerView>
-</com.wxy.nestedscroll.nested.NestedScrollParentView>
+        android:layout_height="match_parent"
+        android:id="@+id/viewpager"
+        android:background="@color/colorAccent"
+        ></androidx.viewpager.widget.ViewPager>
+</com.wxy.nestedscroll.nested.NestedScrollParentView2>

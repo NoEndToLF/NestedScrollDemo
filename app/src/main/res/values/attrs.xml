@@ -2,8 +2,10 @@
 
 <resources>
 <declare-styleable name = "NestedScrollChildView">
-    <attr name="head_imageview_id" format="reference" />
+    <attr name="head_view_id" format="reference" />
+    <attr name="content_view_id" format="reference" />
     <attr name="floating_view_id" format="reference" />
     <attr name="toolbar_id" format="reference" />
+    <attr name="recycle_view_id" format="reference" />
 </declare-styleable>
     </resources>
