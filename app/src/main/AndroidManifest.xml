@@ -9,16 +9,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MyAppTheme">
-        <activity android:name=".NestedScrollActivity" >
+        <activity android:name=".ScrollActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TetViewBehaviorActivity" >
+        <activity android:name=".AppbarBehaviorActivity">
 
-    </activity>
+        </activity>
+        <activity android:name=".NestedScrollActivity"></activity>
+        <activity android:name=".TetViewBehaviorActivity"></activity>
     </application>
 
 </manifest>
